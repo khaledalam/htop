@@ -2,9 +2,8 @@
 
 namespace Htop\Commands;
 
-use Illuminate\Console\Command;
 use Htop\Storage\StorageManager;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -23,7 +22,7 @@ class HtopCommand extends Command
 
             // Start Reverb if not running
             if (stripos(PHP_OS, 'WIN') === false) {
-                $this->info("Checking reverb..");
+                $this->info('Checking reverb..');
                 exec("pgrep -f 'artisan reverb:start' || nohup php artisan reverb:start > /dev/null 2>&1 &");
             }
 
@@ -36,11 +35,12 @@ class HtopCommand extends Command
             } else {
                 exec("xdg-open $url");
             }
+
             return Command::SUCCESS;
         }
 
-        $this->info("HTop is running... (press CTRL+C or q to quit)");
-        $output = new ConsoleOutput();
+        $this->info('HTop is running... (press CTRL+C or q to quit)');
+        $output = new ConsoleOutput;
 
         system('stty cbreak -echo');       // Raw mode: capture key presses
         stream_set_blocking(STDIN, false); // Non-blocking key read
@@ -58,7 +58,7 @@ class HtopCommand extends Command
 
             $filter = $this->option('url');
             if ($filter) {
-                $data = array_filter($data, fn($r) => str_contains($r->path ?? '', $filter));
+                $data = array_filter($data, fn ($r) => str_contains($r->path ?? '', $filter));
             }
 
             $currentHash = md5(json_encode($data));
@@ -76,13 +76,12 @@ class HtopCommand extends Command
         $this->info("\nExited.");
     }
 
-
     protected function renderTable(ConsoleOutput $output, array $data)
     {
         // Move cursor to top without clearing screen
         $output->write("\033[H");
 
-        $output->writeln("HTop — Laravel Requests Monitor (CTRL+C or q to quit)");
+        $output->writeln('HTop — Laravel Requests Monitor (CTRL+C or q to quit)');
         $output->writeln(str_repeat('─', 70));
 
         $rows = array_map(function ($r) {

@@ -19,9 +19,8 @@ class StorageManager
         $driver = config('htop.driver', 'json');
 
         return match ($driver) {
-            'json' => new JsonStorage(),
-            default => new SQLiteStorage(),
+            'json' => new JsonStorage,
+            default => new SQLiteStorage,
         };
     }
-
 }

@@ -10,7 +10,7 @@ class SQLiteStorage implements StorageInterface
     public function __construct()
     {
         $path = config('database.connections.htop_sqlite.database');
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             file_put_contents($path, '');
         }
 

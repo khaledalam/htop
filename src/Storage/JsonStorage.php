@@ -9,7 +9,9 @@ class JsonStorage implements StorageInterface
     public function __construct()
     {
         $this->file = storage_path('logs/htop.json');
-        if (!file_exists($this->file)) file_put_contents($this->file, '[]');
+        if (! file_exists($this->file)) {
+            file_put_contents($this->file, '[]');
+        }
     }
 
     public function store(array $data): void

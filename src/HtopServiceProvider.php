@@ -29,12 +29,11 @@ class HtopServiceProvider extends ServiceProvider
 
         app('router')->pushMiddlewareToGroup('web', RequestLogger::class);
 
-
         $this->publishes([
             __DIR__.'/../config/websockets.php' => config_path('websockets.php'),
         ], 'htop-websockets');
 
-        if (!class_exists('CreateWebSocketsStatisticsEntries')) {
+        if (! class_exists('CreateWebSocketsStatisticsEntries')) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
 
@@ -45,11 +44,11 @@ class HtopServiceProvider extends ServiceProvider
         // To publish views : php artisan vendor:publish --tag=htop-views
         // To publish all   : php artisan vendor:publish --tag=htop
         $this->publishes([
-            __DIR__ . '/../config/htop.php' => config_path('htop.php'),
+            __DIR__.'/../config/htop.php' => config_path('htop.php'),
         ], 'htop-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/htop'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/htop'),
         ], 'htop-views');
 
         $this->publishes([
@@ -57,8 +56,8 @@ class HtopServiceProvider extends ServiceProvider
         ], 'reverb-config');
 
         $this->publishes([
-            __DIR__ . '/../config/htop.php' => config_path('htop.php'),
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/htop'),
+            __DIR__.'/../config/htop.php' => config_path('htop.php'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/htop'),
         ], 'htop');
 
         $kernel = $this->app->make(Kernel::class);
@@ -66,27 +65,26 @@ class HtopServiceProvider extends ServiceProvider
 
         // Inject htop_sqlite connection if not configured
         $connections = config('database.connections');
-        if (!isset($connections['htop_sqlite'])) {
+        if (! isset($connections['htop_sqlite'])) {
             config([
                 'database.connections.htop_sqlite' => [
                     'driver' => 'sqlite',
                     'database' => storage_path('htop/htop.sqlite'),
                     'prefix' => '',
-                ]
+                ],
             ]);
         }
 
         $envPath = base_path('.env');
 
         if (file_exists($envPath) && strpos(file_get_contents($envPath), 'BROADCAST_DRIVER=') === false) {
-            file_put_contents($envPath, PHP_EOL . 'BROADCAST_DRIVER=reverb' . PHP_EOL, FILE_APPEND);
+            file_put_contents($envPath, PHP_EOL.'BROADCAST_DRIVER=reverb'.PHP_EOL, FILE_APPEND);
         }
     }
 
-
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/htop.php', 'htop');
+        $this->mergeConfigFrom(__DIR__.'/../config/htop.php', 'htop');
 
         config()->set('broadcasting.default', 'reverb');
     }

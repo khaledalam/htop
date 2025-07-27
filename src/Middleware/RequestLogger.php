@@ -5,8 +5,8 @@ namespace Htop\Middleware;
 use Closure;
 use Htop\Broadcast\HtopRequestEvent;
 use Htop\Events\NewRequestEvent;
-use Illuminate\Http\Request;
 use Htop\Storage\StorageManager;
+use Illuminate\Http\Request;
 
 class RequestLogger
 {
@@ -17,7 +17,7 @@ class RequestLogger
         try {
             $response = $next($request);
         } catch (\Throwable $e) {
-            $response = response('Exception: ' . $e->getMessage(), $e->getCode());
+            $response = response('Exception: '.$e->getMessage(), $e->getCode());
         }
 
         $entry = [

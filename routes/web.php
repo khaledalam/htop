@@ -3,7 +3,7 @@
 use Htop\Storage\StorageManager;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/htop', function() {
+Route::get('/htop', function () {
     return view('htop::dashboard');
 })->name('htop');
 
@@ -20,5 +20,4 @@ Route::get('/htop-data', function () {
             'timestamp' => $r->timestamp ?? '',
         ])
         ->values();
-})->name('htop-data');;
-
+})->name('htop-data');

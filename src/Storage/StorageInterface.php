@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Htop\Storage;
 
 interface StorageInterface
