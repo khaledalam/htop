@@ -23,3 +23,7 @@
 ```bash
 composer require khaledalam/htop --dev
 php artisan vendor:publish --tag=htop
+```
+
+### CLI:
+<img src="htop-cli.png" />
