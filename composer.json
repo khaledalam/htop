@@ -1,0 +1,19 @@
+{
+    "name": "khaledalam/htop",
+    "description": "Real-time Laravel htop-style request monitor (CLI + GUI)",
+    "autoload": {
+        "psr-4": {
+            "Htop\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Htop\\HtopServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "laravel/reverb": "^1.5"
+    }
+}
